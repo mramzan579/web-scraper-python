@@ -1,12 +1,12 @@
 # scraper.py
-# Web Scraper — Commit 1
-# Set up the project and send a basic HTTP request
-# to confirm we can connect to the target webpage.
+# Web Scraper — Commit 2
+# Add HTML parsing using BeautifulSoup so we can
+# search through the page content like a structured document.
 
 import requests
+from bs4 import BeautifulSoup
 
 # ── Configuration ─────────────────────────────────────────────
-# The URL we want to scrape
 URL = "https://news.ycombinator.com/"
 
 
@@ -20,14 +20,10 @@ def fetch_page(url):
     print(f"Fetching page: {url}")
 
     try:
-        # Send the GET request with a 10 second timeout
         response = requests.get(url, timeout=10)
 
-        # Status code 200 means the request was successful
         if response.status_code == 200:
-            print("Page fetched successfully.")
-            print(f"Status code : {response.status_code}")
-            print(f"Content size: {len(response.text)} characters\n")
+            print("Page fetched successfully.\n")
             return response
         else:
             print(f"Failed. Status code: {response.status_code}")
@@ -46,6 +42,26 @@ def fetch_page(url):
         return None
 
 
+# ================================================================
+# parse_html()
+# Takes the raw HTML response and parses it with BeautifulSoup.
+# "html.parser" is Python's built-in parser — no extra install.
+# Returns a BeautifulSoup object we can search through cleanly.
+# ================================================================
+def parse_html(response):
+    # BeautifulSoup turns raw messy HTML into a searchable tree
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    # Get the page title to confirm parsing is working
+    page_title = soup.find("title")
+
+    if page_title:
+        print(f"Page title : {page_title.get_text()}")
+
+    print(f"Parsing complete.\n")
+    return soup
+
+
 # ── Main ──────────────────────────────────────────────────────
 def main():
     print("=" * 50)
@@ -54,16 +70,18 @@ def main():
 
     # Step 1 — fetch the page
     response = fetch_page(URL)
-
     if response is None:
         print("Scraping stopped due to fetch error.")
         return
 
-    # Temporary: print first 200 characters of raw HTML
-    # to confirm we received real page content
-    print("[DEBUG] First 200 characters of HTML:")
-    print(response.text[:200])
-    print("\n[DEBUG] Fetch is working correctly.")
+    # Step 2 — parse the HTML
+    soup = parse_html(response)
+
+    # Temporary: test that we can search the parsed HTML
+    # Find all <a> tags and count them
+    all_links = soup.find_all("a")
+    print(f"[DEBUG] Total links found on page: {len(all_links)}")
+    print("[DEBUG] Parsing is working correctly.")
 
 
 if __name__ == "__main__":

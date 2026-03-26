@@ -1,21 +1,21 @@
 # scraper.py
-# Web Scraper — Commit 2
-# Add HTML parsing using BeautifulSoup so we can
-# search through the page content like a structured document.
+# Web Scraper
+# Extract all article titles and their links from
+# the parsed HTML using BeautifulSoup search methods.
 
 import requests
 from bs4 import BeautifulSoup
 
-# ── Configuration ─────────────────────────────────────────────
+# Configuration
 URL = "https://news.ycombinator.com/"
 
 
-# ================================================================
+
 # fetch_page()
 # Sends an HTTP GET request to the target URL.
 # Returns the response object if successful.
 # Returns None if something goes wrong.
-# ================================================================
+
 def fetch_page(url):
     print(f"Fetching page: {url}")
 
@@ -42,27 +42,64 @@ def fetch_page(url):
         return None
 
 
-# ================================================================
+
 # parse_html()
 # Takes the raw HTML response and parses it with BeautifulSoup.
-# "html.parser" is Python's built-in parser — no extra install.
-# Returns a BeautifulSoup object we can search through cleanly.
-# ================================================================
+# Returns a BeautifulSoup object we can search through.
+
 def parse_html(response):
-    # BeautifulSoup turns raw messy HTML into a searchable tree
     soup = BeautifulSoup(response.text, "html.parser")
-
-    # Get the page title to confirm parsing is working
-    page_title = soup.find("title")
-
-    if page_title:
-        print(f"Page title : {page_title.get_text()}")
-
-    print(f"Parsing complete.\n")
+    print("HTML parsed successfully.\n")
     return soup
 
 
-# ── Main ──────────────────────────────────────────────────────
+
+# extract_data()
+# Searches the parsed HTML for article titles and their links.
+# Hacker News wraps each story in <span class="titleline">
+# Inside that span is an <a> tag with the title and URL.
+# Returns a list of dictionaries — each with a number,
+# title, and link.
+
+def extract_data(soup):
+    articles = []   # empty list — we will fill this up
+
+    # Find all elements that match this pattern:
+    # <span class="titleline"> ... </span>
+    title_elements = soup.find_all("span", class_="titleline")
+
+    # If nothing found — page structure may have changed
+    if not title_elements:
+        print("No articles found on this page.")
+        return articles
+
+    # Loop through every title element found
+    for index, element in enumerate(title_elements, start=1):
+
+        # Inside each span find the first <a> tag
+        # That <a> holds the article title and URL
+        link_tag = element.find("a")
+
+        if link_tag:
+            # get_text() extracts the visible text
+            title = link_tag.get_text()
+
+            # get("href") gets the URL from the href attribute
+            # "" is the default if href does not exist
+            link = link_tag.get("href", "")
+
+            # Store as a dictionary and add to the list
+            articles.append({
+                "number" : index,
+                "title"  : title,
+                "link"   : link
+            })
+
+    print(f"Extracted {len(articles)} articles.\n")
+    return articles
+
+
+# Main 
 def main():
     print("=" * 50)
     print("         PYTHON WEB SCRAPER")
@@ -77,11 +114,21 @@ def main():
     # Step 2 — parse the HTML
     soup = parse_html(response)
 
-    # Temporary: test that we can search the parsed HTML
-    # Find all <a> tags and count them
-    all_links = soup.find_all("a")
-    print(f"[DEBUG] Total links found on page: {len(all_links)}")
-    print("[DEBUG] Parsing is working correctly.")
+    # Step 3 — extract the data
+    articles = extract_data(soup)
+
+    if not articles:
+        print("No articles to display.")
+        return
+
+    # Temporary: print first 5 articles to confirm extraction works
+    print("[DEBUG] First 5 articles extracted:\n")
+    for article in articles[:5]:
+        print(f"{article['number']}. {article['title']}")
+        print(f"   {article['link']}")
+        print("-" * 50)
+
+    print("\n[DEBUG] Extraction is working correctly.")
 
 
 if __name__ == "__main__":

@@ -1,21 +1,20 @@
 # scraper.py
-# Web Scraper
-# Extract all article titles and their links from
-# the parsed HTML using BeautifulSoup search methods.
+# Web Scraper 
+# Display all extracted articles in the terminal
+# and save them to a text file called results.txt
 
 import requests
 from bs4 import BeautifulSoup
 
-# Configuration
-URL = "https://news.ycombinator.com/"
-
+# Configuration 
+URL         = "https://news.ycombinator.com/"
+OUTPUT_FILE = "results.txt"
 
 
 # fetch_page()
 # Sends an HTTP GET request to the target URL.
 # Returns the response object if successful.
 # Returns None if something goes wrong.
-
 def fetch_page(url):
     print(f"Fetching page: {url}")
 
@@ -55,40 +54,25 @@ def parse_html(response):
 
 
 # extract_data()
-# Searches the parsed HTML for article titles and their links.
-# Hacker News wraps each story in <span class="titleline">
-# Inside that span is an <a> tag with the title and URL.
-# Returns a list of dictionaries — each with a number,
-# title, and link.
+# Searches the parsed HTML for article titles and links.
+# Returns a list of dictionaries with number, title, and link.
 
 def extract_data(soup):
-    articles = []   # empty list — we will fill this up
+    articles = []
 
-    # Find all elements that match this pattern:
-    # <span class="titleline"> ... </span>
     title_elements = soup.find_all("span", class_="titleline")
 
-    # If nothing found — page structure may have changed
     if not title_elements:
         print("No articles found on this page.")
         return articles
 
-    # Loop through every title element found
     for index, element in enumerate(title_elements, start=1):
-
-        # Inside each span find the first <a> tag
-        # That <a> holds the article title and URL
         link_tag = element.find("a")
 
         if link_tag:
-            # get_text() extracts the visible text
             title = link_tag.get_text()
+            link  = link_tag.get("href", "")
 
-            # get("href") gets the URL from the href attribute
-            # "" is the default if href does not exist
-            link = link_tag.get("href", "")
-
-            # Store as a dictionary and add to the list
             articles.append({
                 "number" : index,
                 "title"  : title,
@@ -99,7 +83,51 @@ def extract_data(soup):
     return articles
 
 
-# Main 
+
+# save_to_file()
+# Writes all extracted articles to a plain text file.
+# Uses Python's built-in open() with a with statement.
+# The with statement closes the file automatically when done.
+
+def save_to_file(articles, filename):
+    if not articles:
+        print("Nothing to save.")
+        return
+
+    try:
+        # "w" mode — write mode, creates file if it does not exist
+        # encoding="utf-8" handles special characters in titles
+        with open(filename, "w", encoding="utf-8") as file:
+
+            # Write header
+            file.write("=" * 50 + "\n")
+            file.write("        SCRAPED ARTICLES\n")
+            file.write("=" * 50 + "\n")
+            file.write(f"Source : {URL}\n")
+            file.write(f"Total  : {len(articles)} articles\n")
+            file.write("=" * 50 + "\n\n")
+
+            # Write each article
+            for article in articles:
+                file.write(f"{article['number']}. {article['title']}\n")
+                file.write(f"   Link: {article['link']}\n")
+                file.write("-" * 50 + "\n")
+
+        print(f"Results saved to '{filename}' successfully.")
+
+    except IOError as e:
+        print(f"Error saving file: {e}")
+
+
+
+# main()
+# Entry point. Runs all steps in order:
+#   1. Fetch the page
+#   2. Parse the HTML
+#   3. Extract the data
+#   4. Display results in terminal
+#   5. Save results to file
+
 def main():
     print("=" * 50)
     print("         PYTHON WEB SCRAPER")
@@ -118,17 +146,23 @@ def main():
     articles = extract_data(soup)
 
     if not articles:
-        print("No articles to display.")
+        print("No articles found. The page structure may have changed.")
         return
 
-    # Temporary: print first 5 articles to confirm extraction works
-    print("[DEBUG] First 5 articles extracted:\n")
-    for article in articles[:5]:
+    # Step 4 — display all results in the terminal
+    print(f"Found {len(articles)} articles:\n")
+    print("-" * 50)
+
+    for article in articles:
         print(f"{article['number']}. {article['title']}")
         print(f"   {article['link']}")
         print("-" * 50)
 
-    print("\n[DEBUG] Extraction is working correctly.")
+    # Step 5 — save results to file
+    save_to_file(articles, OUTPUT_FILE)
+
+    print(f"\nDone! Open '{OUTPUT_FILE}' to see the saved results.")
+    print("=" * 50)
 
 
 if __name__ == "__main__":

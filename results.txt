@@ -1,0 +1,97 @@
+==================================================
+        SCRAPED ARTICLES
+==================================================
+Source : https://news.ycombinator.com/
+Total  : 30 articles
+==================================================
+
+1. Hold on to Your Hardware
+   Link: https://xn--gckvb8fzb.com/hold-on-to-your-hardware/
+--------------------------------------------------
+2. A Faster Alternative to Jq
+   Link: https://micahkepe.com/blog/jsongrep/
+--------------------------------------------------
+3. Schedule tasks on the web
+   Link: https://code.claude.com/docs/en/web-scheduled-tasks
+--------------------------------------------------
+4. Apple discontinues the Mac Pro
+   Link: https://9to5mac.com/2026/03/26/apple-discontinues-the-mac-pro/
+--------------------------------------------------
+5. The European AllSky7 fireball network
+   Link: https://www.allsky7.net/#archive
+--------------------------------------------------
+6. Why so many control rooms were seafoam green (2025)
+   Link: https://bethmathews.substack.com/p/why-so-many-control-rooms-were-seafoam
+--------------------------------------------------
+7. Everything old is new again: memory optimization
+   Link: https://nibblestew.blogspot.com/2026/03/everything-old-is-new-again-memory.html
+--------------------------------------------------
+8. Local Bernstein theory, and lower bounds for Lebesgue constants
+   Link: https://terrytao.wordpress.com/2026/03/23/local-bernstein-theory-and-lower-bounds-for-lebesgue-constants/
+--------------------------------------------------
+9. Show HN: I put an AI agent on a $7/month VPS with IRC as its transport layer
+   Link: https://georgelarson.me/writing/2026-03-23-nullclaw-doorman/
+--------------------------------------------------
+10. $500 GPU outperforms Claude Sonnet on coding benchmarks
+   Link: https://github.com/itigges22/ATLAS
+--------------------------------------------------
+11. QRV Operating System: QNX on RISC-V
+   Link: https://r-tty.blogspot.com/2026/03/qrv-operating-system-first-publication.html
+--------------------------------------------------
+12. The Legibility of Serif and Sans Serif Typefaces (2022)
+   Link: https://library.oapen.org//handle/20.500.12657/53344
+--------------------------------------------------
+13. We rewrote JSONata with AI in a day, saved $500k/year
+   Link: https://www.reco.ai/blog/we-rewrote-jsonata-with-ai
+--------------------------------------------------
+14. DOOM Over DNS
+   Link: https://github.com/resumex/doom-over-dns
+--------------------------------------------------
+15. My minute-by-minute response to the LiteLLM malware attack
+   Link: https://futuresearch.ai/blog/litellm-attack-transcript/
+--------------------------------------------------
+16. Whistler: Live eBPF Programming from the Common Lisp REPL
+   Link: https://atgreen.github.io/repl-yell/posts/whistler/
+--------------------------------------------------
+17. Running Tesla Model 3's computer on my desk using parts from crashed cars
+   Link: https://bugs.xdavidhu.me/tesla/2026/03/23/running-tesla-model-3s-computer-on-my-desk-using-parts-from-crashed-cars/
+--------------------------------------------------
+18. Show HN: Minimalist library to generate SVG views of scientific data
+   Link: https://github.com/alefore/mini_svg/
+--------------------------------------------------
+19. HyperAgents: Self-referential self-improving agents
+   Link: https://github.com/facebookresearch/hyperagents
+--------------------------------------------------
+20. Generators in Lone Lisp
+   Link: https://www.matheusmoreira.com/articles/generators-in-lone-lisp
+--------------------------------------------------
+21. Anthropic Subprocessor Changes
+   Link: https://trust.anthropic.com
+--------------------------------------------------
+22. Chroma Context-1: Training a Self-Editing Search Agent
+   Link: https://www.trychroma.com/research/context-1
+--------------------------------------------------
+23. Agent-to-agent pair programming
+   Link: https://axeldelafosse.com/blog/agent-to-agent-pair-programming
+--------------------------------------------------
+24. Using FireWire on a Raspberry Pi
+   Link: https://www.jeffgeerling.com/blog/2026/firewire-on-a-raspberry-pi/
+--------------------------------------------------
+25. We haven't seen the worst of what gambling and prediction markets will do
+   Link: https://www.derekthompson.org/p/we-havent-seen-the-worst-of-what
+--------------------------------------------------
+26. An unstoppable mushroom is tearing through North American forests
+   Link: https://www.bbc.com/future/article/20260325-an-unstoppable-mushroom-is-tearing-through-north-american-forests
+--------------------------------------------------
+27. Show HN: Fio: 3D World editor/game engine – inspired by Radiant and Hammer
+   Link: https://github.com/ViciousSquid/Fio
+--------------------------------------------------
+28. OpenTelemetry profiles enters public alpha
+   Link: https://opentelemetry.io/blog/2026/profiles-alpha/
+--------------------------------------------------
+29. John Bradley, author of xv, has died
+   Link: https://voxday.net/2026/03/25/rip-john-bradley/
+--------------------------------------------------
+30. Colibri – chat platform built on the AT Protocol for communities big and small
+   Link: https://colibri.social/
+--------------------------------------------------
